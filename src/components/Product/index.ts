@@ -1,1 +1,1 @@
-export { Product as default } from './Product'
+export { EbayProduct as default } from './EbayProducts'

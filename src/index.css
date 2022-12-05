@@ -73,13 +73,14 @@ button:focus-visible {
   border-radius: 5px;
 
 } */
-/* .ListItemButton {
+.container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 35px;
+  gap: 10px;
 
 }
-.ListItemButton span {
+/* .ListItemButton span {
   margin-left: 10px;
 }
 .ListItemButton p {
@@ -87,4 +88,8 @@ button:focus-visible {
 } */
 .pagination {
   display: inline-block;
+}
+.view_button {
+  position: sticky;
+  margin-top: 25px;
 }

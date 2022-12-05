@@ -1,11 +1,11 @@
 import './App.css'
-import Product from './components/Product'
+import EbayProduct from './components/Product'
 function App() {
 
 
   return (
     <div className="App">
-      <Product></Product>
+      <EbayProduct></EbayProduct>
     </div>
   )
 }

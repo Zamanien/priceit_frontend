@@ -8,5 +8,6 @@ export type ProductData ={
   }
 
 type Price = {
-    text:string
+    value:number,
+    currency:string
 }
