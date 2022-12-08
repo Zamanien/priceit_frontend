@@ -1,0 +1,1 @@
+export { ProductsWrapper as default } from './ProductsWrapper'

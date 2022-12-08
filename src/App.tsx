@@ -1,11 +1,11 @@
 import './App.css'
-import EbayProduct from './components/Product'
+import ProductsWrapper from './components/Products/ProductsWrapper'
 function App() {
 
 
   return (
     <div className="App">
-      <EbayProduct></EbayProduct>
+      <ProductsWrapper></ProductsWrapper>
     </div>
   )
 }
