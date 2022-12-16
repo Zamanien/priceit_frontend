@@ -29,8 +29,13 @@ export function ProductsWrapper(): JSX.Element {
     
   }
     useEffect(() => {
-    const data: string | null = window.localStorage.getItem('itemList_currentPage') as string;
-    if ( data !== undefined ) {
+    const data: string | null = window.sessionStorage.getItem('itemList_currentPage') as string;
+    if(!data){
+      setFacebookProducts([]);
+      setEbayProducts([]);
+      setGoogleProducts([])
+    }
+    if ( data !== null ) {
       let pageData:{ facebookData: [], ebayData: [], googleData: [], offset: string}  = JSON.parse(data)
       setFacebookProducts(pageData.facebookData);
       setEbayProducts(pageData.ebayData)
@@ -53,7 +58,7 @@ export function ProductsWrapper(): JSX.Element {
       setEbayProducts(data.data.ebayData);
       setFacebookProducts(data.data.facebookData)
       setGoogleProducts(data.data.googleData)
-      localStorage.setItem("itemList_currentPage", JSON.stringify(data.data));
+      sessionStorage.setItem("itemList_currentPage", JSON.stringify(data.data));
       setHidden(false);
       setSearchWord("");
       setHiddenTitle(false)
@@ -65,11 +70,11 @@ export function ProductsWrapper(): JSX.Element {
     setCurrentPage(page);
     let offset: number = (page - 1) * limit;
     console.log("offset", offset)
-    ProductDataService.findBySearchWord(searchWord, limit, offset).then(
+    ProductDataService.findBySearchWord(searchWordPagination, limit, offset).then(
       (data) => {
         setEbayProducts(data.data.ebayData);
         setGoogleProducts(data.data.googleData)
-        localStorage.setItem(
+        sessionStorage.setItem(
           "itemList_currentPage",
           JSON.stringify(data.data.ebayData)
         );

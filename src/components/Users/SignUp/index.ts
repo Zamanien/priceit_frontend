@@ -1,0 +1,1 @@
+export { SignUpUser as default } from './SignUpUser'

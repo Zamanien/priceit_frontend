@@ -86,6 +86,16 @@ button:focus-visible {
   padding: 10px;
 
 }
+.container_signup {
+  align-content:center;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  gap: 30px;
+  background-color: #ffffff;
+  padding: 10px;
+  text-align: center;
+}
 .container_header {
 
   margin: 20px;

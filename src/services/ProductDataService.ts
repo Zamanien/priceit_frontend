@@ -1,6 +1,6 @@
 import http from "../http-common";
 import {ProductData} from "../types/product"
-import axios from "axios";
+
 
 class ProductDataService {
     findBySearchWord(searchWord: string, limit:number, offset:number) {
