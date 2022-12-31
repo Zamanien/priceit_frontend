@@ -1,8 +1,10 @@
-export type User ={
-    userName: string,
-    firstName: string,
-    lastName: string,
+export interface User {
+    id:string,
+    name: string,
     email:string,
     password:string,
-    repeatPassword:string
+    passwordConfirm:string,
+    role:string
+    createdAt: string,
+    updatedAt: string,
   }

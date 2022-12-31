@@ -1,0 +1,1 @@
+export { RegisterUser as default } from './RegisterUser'

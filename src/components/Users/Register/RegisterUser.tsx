@@ -1,62 +1,51 @@
 import { Button, TextField, Alert, Stack, Snackbar } from "@mui/material/";
-import { validationSchema } from "../../../validationSchema";
+import { validationSchemaRegister } from "../../../validationSchema";
 import { useFormik } from "formik";
 import { User } from "../../../types/user";
-import UserDataService from "../../../services/UserDataService";
-import { useEffect, useState } from "react";
-export const SignUpUser = () => {
+import UserDataService from "../../../services/UserAuthService";
+import { useState } from "react";
+export const RegisterUser = () => {
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [openSuccess, setOpenSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-
+  type UserRgister = Omit<User, 'id' | 'role' | 'createdAt' | 'updatedAt' >
   const formik = useFormik({
     initialValues: {
-      userName: "",
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
       password: "",
-      confirmPassword: "",
+      passwordConfirm: "",
     },
-    validationSchema: validationSchema,
+    validationSchema: validationSchemaRegister,
     onSubmit: async (values, { resetForm }) => {
-      const user: User = {
-        userName: values.userName,
-        firstName: values.firstName,
-        lastName: values.lastName,
+      const user: UserRgister = {
+        name: values.name,
         email: values.email,
         password: values.password,
-        repeatPassword: values.confirmPassword,
+        passwordConfirm: values.passwordConfirm,
       };
 
-      await UserDataService.SignUp(user)
+      await UserDataService.Register(user)
         .then((response) => {
           console.log(response);
           if (response.status === 201) {
-            setSuccessMessage(response.data);
+            setSuccessMessage(response.data.status);
             setOpenSuccess(true);
           }
         })
         .catch(function (error) {
-          console.log(error);
-          if (error.response) {
-            setErrorMessage(error.response.data);
+          if (error) {
+            setErrorMessage(error.response.data.message);
             setOpenError(true);
-            // Request made and server responded
-            console.log(error.response.data.error);
-            console.log(error.response.status);
-            console.log(error.response.headers);
           }
         });
       resetForm({
         values: {
-          userName: "",
-          firstName: "",
-          lastName: "",
+          name: "",
           email: "",
           password: "",
-          confirmPassword: "",
+          passwordConfirm: "",
         },
       });
     },
@@ -83,7 +72,7 @@ export const SignUpUser = () => {
   return (
     <>
       <div className="container_signup">
-        <h1>SignUp</h1>
+        <h1>Register</h1>
         <Stack spacing={2} sx={{ maxWidth: 600 }}>
           <Snackbar
             open={openError}
@@ -111,36 +100,14 @@ export const SignUpUser = () => {
         <form onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
-            id="userName"
+            id="name"
             label="username"
             type="text"
             margin="normal"
-            value={formik.values.userName}
+            value={formik.values.name}
             onChange={formik.handleChange}
-            error={formik.touched.userName && Boolean(formik.errors.userName)}
-            helperText={formik.touched.userName && formik.errors.userName}
-          />
-          <TextField
-            fullWidth
-            id="firstName"
-            label="first name"
-            type="text"
-            margin="normal"
-            value={formik.values.firstName}
-            onChange={formik.handleChange}
-            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
-            helperText={formik.touched.firstName && formik.errors.firstName}
-          />
-          <TextField
-            fullWidth
-            id="lastName"
-            label="last name"
-            type="text"
-            margin="normal"
-            value={formik.values.lastName}
-            onChange={formik.handleChange}
-            error={formik.touched.firstName && Boolean(formik.errors.lastName)}
-            helperText={formik.touched.firstName && formik.errors.lastName}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
           />
           <TextField
             fullWidth
@@ -169,26 +136,23 @@ export const SignUpUser = () => {
           <TextField
             fullWidth
             margin="normal"
-            id="confirmPassword"
-            name="confirmPassword"
+            id="passwordConfirm"
+            name="passwordConfirm"
             label="Confirm Password"
             type="password"
-            value={formik.values.confirmPassword}
+            value={formik.values.passwordConfirm}
             onChange={formik.handleChange}
             error={
-              formik.touched.password && Boolean(formik.errors.confirmPassword)
+              formik.touched.password && Boolean(formik.errors.passwordConfirm)
             }
             helperText={
-              formik.touched.password && formik.errors.confirmPassword
+              formik.touched.password && formik.errors.passwordConfirm
             }
             autoComplete="off"
           />
           <Stack spacing={2} sx={{ maxWidth: 400, m:"auto" }}>
             <Button color="primary" variant="contained" fullWidth type="submit">
-              Submit
-            </Button>
-            <Button color="primary" variant="outlined" fullWidth type="button">
-              Log In
+              Register
             </Button>
           </Stack>
         </form>
