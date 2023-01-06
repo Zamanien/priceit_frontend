@@ -19,7 +19,8 @@ import ProductDataService from "../../services/ProductDataService";
 import { ProductData } from "../../types/product";
 import Product from "../Products/Product";
 import  SpringModal  from "../Modal/Modal"
-import Profile from "../Profile";
+import { FavoritesDrawer } from "../Drawer/FavoritesDrawer";
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -243,7 +244,7 @@ export function SearchAppBar() {
       </Box>
       <>
         <div className="container">
-         
+       
           <Product
             title="Facebook Products"
             hiddenTitle={hiddenFacebookTitle}

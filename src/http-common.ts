@@ -9,6 +9,7 @@ export const httpSearch = axios.create({
 
 export const httpAuth = axios.create({
   baseURL: "http://localhost:8000/api",
+  withCredentials: true,
   headers: {
     "Content-type": "application/json"
   }

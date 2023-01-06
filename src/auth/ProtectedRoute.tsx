@@ -1,19 +1,21 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useUser } from "./useUser";
-
-const useAuth = (data:any) => {
+import {useCookies} from 'react-cookie'
+const useAuth = (data:any, cookie:{ logged_in?: any; }) => {
   if (!data) {
     return false;
-  } else if (data.user.role === "user") {
+  } else if (data.sub.role === "user" && cookie.logged_in) {
     return true;
   }
 };
 
 const ProtectedRoute = (props: any) => {
- 
+  const [cookie, setCookie] = useCookies(['logged_in'])
+  console.log(cookie.logged_in)
   const data = useUser()
-  const auth = useAuth(data);
-  return auth ? <Outlet context={data.user}/> : <Navigate to="/" />;
+
+  const auth = useAuth(data, cookie);
+  return auth ? <Outlet context={data.sub}/> : <Navigate to="/" />;
 };
 
 export default ProtectedRoute;

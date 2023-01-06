@@ -12,7 +12,9 @@ export const RegisterUser = () => {
   type UserRgister = Omit<User, 'id' | 'role' | 'createdAt' | 'updatedAt' >
   const formik = useFormik({
     initialValues: {
-      name: "",
+      userName: "",
+      firstName:"",
+      lastName:"",
       email: "",
       password: "",
       passwordConfirm: "",
@@ -20,7 +22,9 @@ export const RegisterUser = () => {
     validationSchema: validationSchemaRegister,
     onSubmit: async (values, { resetForm }) => {
       const user: UserRgister = {
-        name: values.name,
+        userName: values.userName,
+        firstName:values.firstName,
+        lastName:values.lastName,
         email: values.email,
         password: values.password,
         passwordConfirm: values.passwordConfirm,
@@ -42,7 +46,9 @@ export const RegisterUser = () => {
         });
       resetForm({
         values: {
-          name: "",
+          userName: "",
+          firstName:"",
+          lastName:"",
           email: "",
           password: "",
           passwordConfirm: "",
@@ -104,10 +110,32 @@ export const RegisterUser = () => {
             label="username"
             type="text"
             margin="normal"
-            value={formik.values.name}
+            value={formik.values.userName}
             onChange={formik.handleChange}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
+            error={formik.touched.userName && Boolean(formik.errors.userName)}
+            helperText={formik.touched.userName && formik.errors.userName}
+          />
+           <TextField
+            fullWidth
+            id="firstName"
+            label="firstName"
+            type="text"
+            margin="normal"
+            value={formik.values.firstName}
+            onChange={formik.handleChange}
+            error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+            helperText={formik.touched.firstName && formik.errors.firstName}
+          />
+            <TextField
+            fullWidth
+            id="lastName"
+            label="lastName"
+            type="text"
+            margin="normal"
+            value={formik.values.lastName}
+            onChange={formik.handleChange}
+            error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+            helperText={formik.touched.lastName && formik.errors.lastName}
           />
           <TextField
             fullWidth

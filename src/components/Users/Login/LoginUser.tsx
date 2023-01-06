@@ -5,7 +5,7 @@ import { User } from "../../../types/user";
 import UserAuthService from "../../../services/UserAuthService";
 import { useState } from "react";
 import { useToken } from '../../../auth/useToken'
-import {useCookies} from 'react-cookie'
+
 
 export const LoginUser = () => {
   const [openError, setOpenError] = useState(false);
@@ -13,8 +13,9 @@ export const LoginUser = () => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [token, setToken] = useToken();
-  const [cookie, setCookie] = useCookies(['access_token'])
-  type UserLogin = Omit<User, 'id' | 'name' | 'passwordConfirm' | 'role' | 'createdAt' | 'updatedAt' >
+
+
+  type UserLogin = Omit<User, 'id' | 'userName' | 'firstName' | 'lastName' | 'passwordConfirm' | 'role' | 'createdAt' | 'updatedAt' >
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -31,8 +32,7 @@ export const LoginUser = () => {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
-            const token:string = response.data.access_token
-            setToken(token)
+            setToken(response.data.access_token)
             setSuccessMessage(response.data.status);
             setOpenSuccess(true);
           }

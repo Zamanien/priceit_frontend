@@ -2,13 +2,15 @@ import { httpAuth } from "../http-common";
 import { User } from "../types/user.js";
 type UserLogin = Omit<
   User,
-  "id" | "name" | "passwordConfirm" | "role" | "createdAt" | "updatedAt"
+  'id' | 'userName' | 'firstName' | 'lastName' | 'passwordConfirm' | 'role' | 'createdAt' | 'updatedAt'
 >;
 type UserRgister = Omit<User, "id" | "role" | "createdAt" | "updatedAt">;
 class UserAuthService {
   Register(user: UserRgister) {
     return httpAuth.post("/auth/register", {
-      name: user.name,
+      userName: user.userName,
+      firstName:user.firstName,
+      lastName:user.lastName,
       email: user.email,
       password: user.password,
       passwordConfirm: user.passwordConfirm,
@@ -19,7 +21,7 @@ class UserAuthService {
     return httpAuth.post("/auth/login", {
       email: user.email,
       password: user.password,
-    });
+    } );
   }
 
   GetUser(user: User) {

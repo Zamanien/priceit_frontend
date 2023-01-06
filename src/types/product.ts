@@ -1,10 +1,12 @@
 
 export interface ProductDataProps {
-  title:string
-  productList: ProductData[];
+  title?:string
+  productList?: ProductData[];
+  favoriteProducts?:ProductData[],
   handleChange?: ((event: React.ChangeEvent<unknown>, page: number) => void)
+  childToParent?:(product:ProductData) => void
   currentPage?: number
-  hiddenTitle: boolean
+  hiddenTitle?: boolean
  }
  
 export type ProductData ={
