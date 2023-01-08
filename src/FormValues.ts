@@ -4,7 +4,7 @@ export type FormValues = {
     userName: User['userName'],
     firstName: User['firstName'],
     lastName: User['lastName'],
-    email:User['email'],
-    password:User['password'],
-    repeatPassword:User['repeatPassword']
+    email: User['email'],
+    password: User['password'],
+    passwordConfirm: User['passwordConfirm']
 }
