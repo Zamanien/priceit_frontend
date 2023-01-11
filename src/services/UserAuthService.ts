@@ -27,6 +27,10 @@ class UserAuthService {
   GetUser(user: User) {
     return httpAuth.get<{ user: User }>("/users/me", { data: { id: user.id } });
   }
+
+  UpdateUser(user: User) {
+    return httpAuth.get<{ user: User }>("/users/me", { data: { id: user.id } });
+  }
 }
 
 export default new UserAuthService();

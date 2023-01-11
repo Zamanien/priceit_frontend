@@ -3,17 +3,25 @@ import { validationSchemaLogin } from "../../../validationSchema";
 import { useFormik } from "formik";
 import { User } from "../../../types/user";
 import UserAuthService from "../../../services/UserAuthService";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useToken } from '../../../auth/useToken'
+import { useNavigate } from "react-router-dom";
 
-
-export const LoginUser = () => {
+export const Login = () => {
+  const [ hideLogin, setHideLogin] = useState(false)
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [openSuccess, setOpenSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [token, setToken] = useToken();
-
+  const navigate = useNavigate();
+  function gotoProfile() {
+    
+    setTimeout(() => {
+      navigate("/profile");
+    }, 1000)
+    
+  }
 
   type UserLogin = Omit<User, 'id' | 'userName' | 'firstName' | 'lastName' | 'passwordConfirm' | 'role' | 'createdAt' | 'updatedAt' >
   const formik = useFormik({
@@ -27,7 +35,7 @@ export const LoginUser = () => {
         email: values.email,
         password: values.password,
       };
-
+     
       await UserAuthService.LogIn(user)
         .then((response) => {
           console.log(response);
@@ -35,6 +43,9 @@ export const LoginUser = () => {
             setToken(response.data.access_token)
             setSuccessMessage(response.data.status);
             setOpenSuccess(true);
+
+            gotoProfile();
+            
           }
         })
         .catch(function (error) {
@@ -55,6 +66,7 @@ export const LoginUser = () => {
     event: React.SyntheticEvent | Event,
     reason?: string
   ) => {
+
     if (reason === "clickaway") {
       return;
     }
@@ -72,7 +84,7 @@ export const LoginUser = () => {
 
   return (
     <>
-      <div className="container_signup">
+      <div className="container_signup" >
         <h1>Log In</h1>
         <Stack spacing={2} sx={{ maxWidth: 600 }}>
           <Snackbar

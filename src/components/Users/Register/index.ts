@@ -1,1 +1,1 @@
-export { RegisterUser as default } from './RegisterUser'
+export { Register as default } from './Register'

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Modal, Button, Box, Stack, Backdrop } from "@mui/material";
 import { useSpring, animated } from "@react-spring/web";
-import { LoginUser } from "../Users/Login/LoginUser";
-import { RegisterUser } from "../Users/Register/RegisterUser";
+import { Login } from "../Users/Login/Login";
+import { Register } from "../Users/Register/Register";
+import { User } from "../../types";
 interface FadeProps {
   children?: React.ReactElement;
   in: boolean;
@@ -120,7 +121,7 @@ export default function SpringModal() {
       >
         <Fade in={openRegister}>
           <Box sx={style}>
-            <RegisterUser />
+            <Register />
           </Box>
         </Fade>
       </Modal>
@@ -137,7 +138,7 @@ export default function SpringModal() {
       >
         <Fade in={openLogin}>
           <Box sx={style}>
-            <LoginUser />
+            <Login />
           </Box>
         </Fade>
       </Modal>

@@ -12,15 +12,16 @@ import { Pagination } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useFormik } from "formik";
-import { useState } from "react";
-import { useNavigate  } from 'react-router-dom';
+import { useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { searchWordValidationSchema } from "../../validationSchema";
 import ProductDataService from "../../services/ProductDataService";
 import { ProductData } from "../../types/product";
 import Product from "../Products/Product";
-import  SpringModal  from "../Modal/Modal"
 import { FavoritesDrawer } from "../Drawer/FavoritesDrawer";
-
+import Tooltip from "@mui/material/Tooltip";
+import LoggedIn from "../../auth/LoggedIn";
+import HomeIcon from "@mui/icons-material/Home";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -78,8 +79,12 @@ export function SearchAppBar() {
 
   const [ebayProducts, setEbayProducts] = useState<ProductData[] | undefined>();
 
-  const [facebookProducts, setFacebookProducts] = useState<ProductData[] | undefined>();
-  const [googleProducts, setGoogleProducts] = useState<ProductData[] | undefined>();
+  const [facebookProducts, setFacebookProducts] = useState<
+    ProductData[] | undefined
+  >();
+  const [googleProducts, setGoogleProducts] = useState<
+    ProductData[] | undefined
+  >();
 
   const formik = useFormik({
     initialValues: {
@@ -136,9 +141,12 @@ export function SearchAppBar() {
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  function gotoHome() {
+    navigate("/");
+  }
   const navigate = useNavigate();
-  function gotoProfile(){
-    navigate("/profile")
+  function gotoProfile() {
+    navigate("/profile");
   }
   const handleClose = () => {
     setAnchorEl(null);
@@ -160,12 +168,12 @@ export function SearchAppBar() {
         limit,
         offset
       ).then((response) => {
-        console.log(response)
-        if(response.data.facebookData.length == 0){
-          setHiddenFacebookTitle(true)
+        console.log(response);
+        if (response.data.facebookData.length == 0) {
+          setHiddenFacebookTitle(true);
         }
         setFacebookProducts(response.data.facebookData);
-        setEbayProducts(response.data.ebayData)
+        setEbayProducts(response.data.ebayData);
         setGoogleProducts(response.data.googleData);
       });
     } catch (error) {
@@ -177,7 +185,19 @@ export function SearchAppBar() {
       <Box sx={{ flexGrow: 1 }} className="navbar">
         <AppBar position="fixed">
           <Toolbar>
-            <Search>
+            <Tooltip title="Home">
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                onClick={gotoHome}
+              >
+                <HomeIcon />
+              </IconButton>
+            </Tooltip>
+            {/* <Search>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -196,7 +216,8 @@ export function SearchAppBar() {
                   }
                 />
               </form>
-            </Search>
+            </Search> */}
+
             <Typography
               variant="h6"
               noWrap
@@ -206,20 +227,21 @@ export function SearchAppBar() {
               Welcome
             </Typography>
 
-            
-            <SpringModal />
+            <LoggedIn />
             {auth && (
               <div>
+                <Tooltip title="Profile">
                 <IconButton
                   size="large"
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
-                  onClick={handleMenu}
+                  onClick={gotoProfile}
                   color="inherit"
                 >
                   <AccountCircle />
                 </IconButton>
+                </Tooltip>
                 <Menu
                   id="menu-appbar"
                   anchorEl={anchorEl}
@@ -242,7 +264,7 @@ export function SearchAppBar() {
           </Toolbar>
         </AppBar>
       </Box>
-      <>
+      {/* <>
         <div className="container">
        
           <Product
@@ -270,7 +292,7 @@ export function SearchAppBar() {
             hidden={hiddenPagination}
           />
         </div>
-      </>
+      </> */}
     </>
   );
 }

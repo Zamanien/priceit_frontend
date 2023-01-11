@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { User } from "../../../types/user";
 import UserDataService from "../../../services/UserAuthService";
 import { useState } from "react";
-export const RegisterUser = () => {
+export const Register = () => {
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [openSuccess, setOpenSuccess] = useState(false);
