@@ -9,7 +9,10 @@ import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { ProductDataProps, ProductData } from "../../../types/product";
-import { createTheme } from "@mui/material/styles";
+import UserAuthService from "../../../services/UserAuthService";
+import { useUser } from "../../../auth/useUser";
+import { useOutletContext } from "react-router-dom";
+import { User } from "../../../types";
 
 export function Product({
   title,
@@ -28,7 +31,7 @@ export function Product({
   } else {
     localProducts = [];
   }
-
+  const data= useUser()
   const [favoriteProducts, setFavoriteProducts] = useState<
     ProductData[] | undefined
   >([]);
@@ -46,11 +49,23 @@ export function Product({
       if (!favoriteProducts?.includes(p)) setFavoriteProducts(favoriteProducts?.concat(p));
       if (!favoriteProducts?.includes(p)) localProducts.push(p);
       localStorage.setItem("favoriteProducts", JSON.stringify(localProducts));
+      addProductToProfile(localProducts)
     } else {
       setActiveIndex(-1);
     }
   }
-
+  const addProductToProfile = async (favoriteProducts:ProductData[]|undefined)  =>{
+    console.log(data)
+    const searches =['iphone', 'samsung', 'ipad']
+    try {
+      await UserAuthService.UpdateUser(data.sub._id, searches, favoriteProducts)
+      .then(response =>{
+        console.log(response)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  } 
 
   return (
     <>

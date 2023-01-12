@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const access_token = localStorage.getItem("access_token")
 export const httpSearch = axios.create({
   baseURL: "http://localhost:8080/api",
   // baseURL: "https://priceit-backend.zamanien.com/api",
@@ -13,6 +14,7 @@ export const httpAuth = axios.create({
   // baseURL: "https://priceit-auth.zamanien.com/api",
   withCredentials: true,
   headers: {
-    "Content-type": "application/json"
+    "Content-type": "application/json",
+    "Authorization": access_token
   }
 })

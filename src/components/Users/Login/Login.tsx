@@ -6,6 +6,7 @@ import UserAuthService from "../../../services/UserAuthService";
 import React, { useState } from "react";
 import { useToken } from '../../../auth/useToken'
 import { useNavigate } from "react-router-dom";
+import { useUserId } from "../../../auth/useUser";
 
 export const Login = () => {
   const [ hideLogin, setHideLogin] = useState(false)
@@ -14,6 +15,7 @@ export const Login = () => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [token, setToken] = useToken();
+  const data = useUserId()
   const navigate = useNavigate();
   function gotoProfile() {
     
@@ -43,8 +45,8 @@ export const Login = () => {
             setToken(response.data.access_token)
             setSuccessMessage(response.data.status);
             setOpenSuccess(true);
-
             gotoProfile();
+ 
             
           }
         })

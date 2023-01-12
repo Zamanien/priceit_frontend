@@ -1,5 +1,7 @@
+import { useToken } from "../auth/useToken";
 import { httpAuth } from "../http-common";
 import { User } from "../types/user.js";
+import { ProductData } from "../types";
 type UserLogin = Omit<
   User,
   'id' | 'userName' | 'firstName' | 'lastName' | 'passwordConfirm' | 'role' | 'createdAt' | 'updatedAt'
@@ -24,13 +26,23 @@ class UserAuthService {
     } );
   }
 
-  GetUser(user: User) {
-    return httpAuth.get<{ user: User }>("/users/me", { data: { id: user.id } });
+  GetUser(userId: string) {
+    return httpAuth.get("/users/me", { data: { id: userId } });
   }
 
-  UpdateUser(user: User) {
-    return httpAuth.get<{ user: User }>("/users/me", { data: { id: user.id } });
-  }
+  UpdateUser(userId:string, searches:string[], items: ProductData[] | undefined)  {
+    return httpAuth.patch(`/users/me/${userId}` ,{ data: { 
+      // id:product.id,
+      // title:product.title,
+      // price: product.price,
+      // image:product.image,
+      // itemRef:product.itemRef
+      searches:searches,
+      items: items
+  }});
+  
 }
+}
+
 
 export default new UserAuthService();

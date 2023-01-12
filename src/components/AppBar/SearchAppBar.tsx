@@ -22,6 +22,7 @@ import { FavoritesDrawer } from "../Drawer/FavoritesDrawer";
 import Tooltip from "@mui/material/Tooltip";
 import LoggedIn from "../../auth/LoggedIn";
 import HomeIcon from "@mui/icons-material/Home";
+import SpringModal from "../Modal/SpringModal";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,

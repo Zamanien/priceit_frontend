@@ -26,7 +26,7 @@ export function Profile() {
     return (
       <>
         <Container maxWidth="lg">
-          <h3>Welcome: {user.userName}</h3>
+          <h3>Welcome: {user.firstName}{user.lastName}</h3>
           <h3>{user.email}</h3>
         </Container>
         <h4>Your favorites products :</h4>
