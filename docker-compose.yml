@@ -4,8 +4,13 @@ services:
   price_it_frontend:
     container_name: price_it_frontend
     build: .
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - ${DOCKER_SERVER_PORT}:${LOCAL_SERVER_PORT}
     volumes:
       - .:/src
       - /src/node_modules
     ports:
-      - 5173:5173
+      # - 5173:5173
+      - 8080:5173
