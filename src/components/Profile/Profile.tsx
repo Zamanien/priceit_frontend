@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 export function Profile() {
   const user: User = useOutletContext();
   const [favoriteProducts, setFavoriteProducts] = useState<ProductData[] | undefined>([]);
-
+  
     function getFavoritesItems(){
       if(localStorage['favoriteProducts']){
         let favProducts:ProductData[] | undefined = JSON.parse(localStorage.getItem('favoriteProducts')|| "")
@@ -23,6 +23,8 @@ export function Profile() {
     useEffect(()=>{
       getFavoritesItems()
     }, [])
+
+    
     return (
       <>
         <Container maxWidth="lg">

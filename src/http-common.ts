@@ -13,6 +13,6 @@ export const httpAuth = axios.create({
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
-    "Authorization": access_token
+    "Authorization": access_token,
   }
 })
