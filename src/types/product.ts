@@ -9,6 +9,7 @@ export interface ProductDataProps {
   hiddenTitle?: boolean
   error?:string
   hiddenError?:boolean
+  onDelete?: () => any
  }
  export interface Data{
   facebookProducts: ProductData[] | undefined;
